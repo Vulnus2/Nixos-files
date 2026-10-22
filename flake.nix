@@ -5,11 +5,22 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
-    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     helium.url = "github:oxcl/nix-flake-helium-browser";
-    freesm.url = "github:FreesmTeam/FreesmLauncher";
+    freesm = {
+      url = "github:FreesmTeam/FreesmLauncher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia.url = "github:noctalia-dev/noctalia";
-    mangowm.url = "github:mangowm/mango";
+    mangowm = {
+     url = "github:mangowm/mango";
+     inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 

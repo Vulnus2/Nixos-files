@@ -6,7 +6,7 @@
   imports =
     [ # Include the results of the hardware scan.
       self.nixosModules.myMachineHardware
-      self.nixosModules.niri
+      # self.nixosModules.niri
       self.nixosModules.mango
     ];
     nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -61,11 +61,15 @@
   #services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  #services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+  enable=true;
+  theme = "sddm-astronaut-theme";
+  extraPackages = [ pkgs.sddm-astronaut ];
+  };
   services.displayManager.defaultSession = lib.mkForce "mango";
-  #services.desktopmanager.plasma6.enable = true;
+  services.desktopManager.plasma6.enable = true;
   services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
+  #services.displayManager.gdm.enable = true;
   services.flatpak.enable = true;
 
 
@@ -108,18 +112,18 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     description = "miki";
-    extraGroups = [ "networkmanager" "wheel" "video" "input"];
+    extraGroups = [ "networkmanager" "wheel" "video" "input" "render" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
     ];
-  };
+   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  # some programs.
   programs.steam.enable = true;
   programs.zsh.enable = true;
   programs.gamemode.enable = true;
+  programs.kdeconnect.enable = true;
 
 
   # Allow unfree packages
@@ -134,6 +138,7 @@
      fastfetch
      ghostty
      neovim
+     librewolf
      self.packages.${pkgs.stdenv.hostPlatform.system}.myHelium
      self.packages.${pkgs.stdenv.hostPlatform.system}.myFreesm
      hicolor-icon-theme
@@ -160,14 +165,15 @@
      pkgs.proton-vpn
      gnome-extension-manager
      pkgs.bazaar
-     pkgs.gnome-tweaks
+     pkgs.gearlever
      grim
      wl-clipboard
      libnotify
      yazi
      rclone
-     pkgs.gnomeExtensions.gsconnect
      lazygit
+     sddm-astronaut
+     pkgs.gnome-tweaks
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
@@ -192,6 +198,28 @@
   #noto-fonts-color-emoji
   #twemoji-color-font
 ];
+hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # 2. Enable nix-ld to expose C libraries (Mesa, X11, GLFW, GTK) to Java
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      libglvnd
+      mesa
+      libX11
+      libXext
+      libXcursor
+      libXrandr
+      libXxf86vm
+      libpulseaudio
+      zenity
+
+    ];
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
