@@ -68,7 +68,7 @@
   };
   services.displayManager.defaultSession = lib.mkForce "mango";
   services.desktopManager.plasma6.enable = true;
-  services.desktopManager.gnome.enable = true;
+  #services.desktopManager.gnome.enable = true;
   #services.displayManager.gdm.enable = true;
   services.flatpak.enable = true;
 
@@ -163,9 +163,9 @@
      libnotify
      psmisc
      pkgs.proton-vpn
-     gnome-extension-manager
+    # gnome-extension-manager
      pkgs.bazaar
-     pkgs.gearlever
+     # pkgs.gearlever
      grim
      wl-clipboard
      libnotify
@@ -173,7 +173,7 @@
      rclone
      lazygit
      sddm-astronaut
-     pkgs.gnome-tweaks
+    # pkgs.gnome-tweaks
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
