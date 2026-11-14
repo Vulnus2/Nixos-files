@@ -141,6 +141,7 @@
      librewolf
      self.packages.${pkgs.stdenv.hostPlatform.system}.myHelium
      self.packages.${pkgs.stdenv.hostPlatform.system}.myFreesm
+     self.packages.${pkgs.stdenv.hostPlatform.system}.myDrift
      hicolor-icon-theme
      adwaita-icon-theme
      xwayland-satellite
@@ -191,6 +192,7 @@
   #fira-code
   #fira-code-symbols
   jetbrains-mono
+  iosevka
 
   # Nerd Fonts (For icons in terminal/Neovim)
   nerd-fonts.jetbrains-mono

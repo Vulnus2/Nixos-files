@@ -22,6 +22,8 @@
      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    drift.url = "github:socatlolmeow/drift";
+
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
